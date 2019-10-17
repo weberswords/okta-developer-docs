@@ -6,13 +6,13 @@ title: IdX
 
 <ApiLifecycle access="ea" />
 
-The Okta IdX API implements enrollment and authentication steps for end users using the Okta Identity Engine pipeline.
+The Okta IdX API implements enrollment and authentication steps for end users progressing through the Okta Identity Engine pipeline.
 
 Background information on using this API is available on this page: [Identity Engine Overview](/docs/concepts/identity-engine/) <!--Page doesn't exist yet; will be a conceptual overview, covering state token, remediation, use of policies, and the steps in the pipeline -->
 
 You are required to supply a `stateHandle` object, which functions as a state token, in each request you make to this API. You receive that object originally from the Okta Oauth 2.0 `/authorize` endpoint when the authentication or enrollment process flow is launched.
 
-The JSON objects returned by this API follow the [Ion Hypermedia Type](https://ionspec.org/) specification. A [Remediation object](#remediation-object) is returned in every response, providing information on the next step that needs to be taken as the end user progresses through the Okta Identity Engine pipeline and provides the URL of the next endpoint that should be called, as well as the objects you need to send in the request body of that call.
+The JSON objects returned by this API follow the [Ion Hypermedia Type](https://ionspec.org/) specification. A [Remediation object](#remediation-object) is returned in every response, providing information on the next step that needs to be taken, including providing the URL of the next endpoint that should be called and the objects that need to be sent in the request body of that call.
 
 ## Getting Started
 
@@ -33,7 +33,7 @@ The IdX API provides the following operations:
 
 <ApiOperation method="post" url="/idp/idx/identify" />
 
-Given a username, checks if the user already exists, and, if so, returns the User ID. The Remediation object returned specifies the next step to take to authenticate the user, if they already exist, or to enroll them, if they do not.
+Given a `username`, checks if the user already exists, and, if so, returns their User ID. The Remediation object returned specifies the next step to take, which might be to authenticate the user, if they already exist, or to enroll them, if they do not.
 
 #### Request Body
 
@@ -161,7 +161,7 @@ In this response, the user has been identified as existing, so their User ID is 
 
 <ApiOperation method="post" url="/idp/idx/enroll" />
 
-Begins the enrollment process for a new user. You typically need to call this endpoint twice: first to get the list of user attributes you need to collect from the end user, and then again to pass the values to Okta.
+Begins the enrollment process for a new user. You typically need to call this endpoint twice: first to get the list of user attributes that you need to collect from the end user, and then again to pass the values themselves to Okta.
 
 ### Request Body
 
@@ -190,7 +190,7 @@ curl -X POST \
 
 ##### Response
 
-In this response, the Remediation object provides information on the User Profile attributes that you need to prompt the end user to supply. It also specifies that the next step is to make a request to this same endpoint again, to pass the values collected from the end user.
+In this response, the Remediation object provides information on the User Profile attributes that need to be collected from the user. It also specifies that the next step is to make a request to this same endpoint again, to pass to Okta the values collected from the user.
 
 ```json
 {
