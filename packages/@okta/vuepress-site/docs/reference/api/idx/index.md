@@ -6,13 +6,13 @@ title: IdX
 
 <ApiLifecycle access="ea" />
 
-The Okta IdX API implements enrollment and authentication steps for end users, using the Okta Identity Engine pipeline.
+The Okta IdX API implements enrollment and authentication steps for end users using the Okta Identity Engine pipeline.
 
 Background information on using this API is available on this page: [Identity Engine Overview](/docs/concepts/identity-engine/) <!--Page doesn't exist yet; will be a conceptual overview, covering state token, remediation, use of policies, and the steps in the pipeline -->
 
 You are required to supply a `stateHandle` object, which functions as a state token, in each request you make to this API. You receive that object originally from the Okta Oauth 2.0 `/authorize` endpoint when the authentication or enrollment process flow is launched.
 
-The JSON objects returned by this API follow the [Ion Hypermedia Type](https://ionspec.org/) specification. A [Remediation](#remediation-object) is returned in every response, providing information on the next step that needs to be taken as the end user progresses through the Okta Identity Engine pipeline, including the URL of the next endpoint that should be called and the objects to send in the request body of that call.
+The JSON objects returned by this API follow the [Ion Hypermedia Type](https://ionspec.org/) specification. A [Remediation object](#remediation-object) is returned in every response, providing information on the next step that needs to be taken as the end user progresses through the Okta Identity Engine pipeline and provides the URL of the next endpoint that should be called, as well as the objects you need to send in the request body of that call.
 
 ## Getting Started
 
