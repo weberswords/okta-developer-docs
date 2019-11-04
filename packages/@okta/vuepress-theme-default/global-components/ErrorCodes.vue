@@ -1,35 +1,42 @@
 <template>
   <div class="error-codes">
-    <p>
-    <input type="text" id="error-code-search" name="filter" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search error codes for..." :value="search" @input="updateSearch"/>
+    <p class="error-codes-search-container">
+    <input type="text" id="error-code-search" name="filter" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search error codes for... (Titles, Http Status, or Error Code)" :value="search" @input="updateSearch"/>
+    <select id="error-codes-release" name="release" markdown="block" v-model="filterStatusCode">
+      <option :value="null">Status Codes</option>
+      <option v-for="statusCode in statusCodes" v-bind:key="statusCode.statusCode" v-bind:value="statusCode.statusCode">
+        {{ statusCode.statusCode }} - {{ statusCode.statusReasonPhrase}}
+      </option>
+    </select>
+    <span class="reset-search" @click="resetSearch"></span>
     </p>
     <div id="error-code-count">Found <b>{{ resultCount }}</b> matches</div>
     <div class="error-code" v-for="oktaError in filteredErrorCodes" :key="oktaError.errorCode">
-      <h4 :id="oktaError.errorCode">
-        {{oktaError.title}}
-        <a :href="'#'+oktaError.errorCode" aria-hidden="true" class="header-anchor header-link"><i class="fa fa-link"></i></a>
-      </h4>
+      <h4 :id="oktaError.errorCode" v-html="$options.filters.titleErrorCode(oktaError)"></h4>
+      <div class="error-code-mappings">
+        <b>Http Status: </b> {{ oktaError.statusCode }} {{ oktaError.statusReasonPhrase }}
+      </div>
       <p class="error-code-description" v-if="oktaError.errorSummary">{{ oktaError.errorSummary}}</p>
       <p class="error-code-description" v-else>No Description</p>
-      <pre >
-        <code class="language-json">
-{ 
-  "errorCode": "{{oktaError.errorCode}}", 
-  "errorSummary": "{{oktaError.errorSummary}}", 
-  "errorLink": "{{oktaError.errorCode}}", 
-  "errorId": "{UniqueErrorId}", 
-  "errorCauses": [] 
-}
-        </code>
-      </pre>
-
-      <div class="error-code-tags">
-        <code class="error-code-tag world" >{{ oktaError.statusCode }}</code>
-        <code class="error-code-tag" >{{ oktaError.errorCode }}</code>
-      </div>
-      <div class="error-code-release">
-        Since: <a href="/docs/release-notes/">2019.10.2</a>
-      </div>
+      <div class="example">
+        <h6 class="toggleErrorExample" :class="{open: openExample == oktaError.errorCode}" @click="toggleResponseExample(oktaError.errorCode)">Show/Hide Error Example</h6>
+        <pre v-if="openExample == oktaError.errorCode">
+          
+          <code class="language-json responseExmaple" >
+  HTTP/1.1 {{oktaError.statusCode}} {{oktaError.statusReasonPhrase}}
+  Content-Type: application/json
+    
+  { 
+    "errorCode": "{{oktaError.errorCode}}", 
+    "errorSummary": "{{oktaError.errorSummary}}", 
+    "errorLink": "{{oktaError.errorCode}}", 
+    "errorId": "{UniqueErrorId}", 
+    "errorCauses": [] 
+  }
+          </code>
+        </pre>
+    </div>
+      
     </div>
   </div>
 </template>
@@ -41,22 +48,33 @@
   export default {
     created() {
       this.errorCodes = errorCodes
+      this.statusCodes = _.chain(this.errorCodes.errors)
+        .uniqBy(function(error) {
+          return error.statusCode
+        })
+        .sortBy(function(error) {
+          return error.statusCode
+        })
+        .value()
     },
     data() {
       return {
-        search: this.$route.query.q || ''
+        search: this.$route.query.q || '',
+        filterStatusCode: this.$route.query.httpStatus || null,
+        openExample: ''
       }
     },
     computed: {
       filteredErrorCodes: function() {
-        if( !this.search ) {
+        if( !this.search && !this.filterStatusCode ) {
           return this.errorCodes.errors
         }
 
         return this.errorCodes.errors.filter((oktaError) => {
-          return oktaError.errorCode.includes(this.search)
+          return (!this.filterStatusCode || oktaError.statusCode == this.filterStatusCode) &&  (
+            oktaError.errorCode.includes(this.search)
           || oktaError.statusCode.toString().includes(this.search)
-          || oktaError.title.toLowerCase().includes(this.search.toLowerCase());
+          || oktaError.title.toLowerCase().includes(this.search.toLowerCase()));
         });
       },
 
@@ -68,20 +86,39 @@
       search() {
         this.addHistory()
       },
-      release() {
+      filterStatusCode() {
         this.addHistory()
       }      
     },
+    filters: {
+      titleErrorCode: function (oktaError) {
+        const parts = oktaError.errorCode.split(/(E0+)(\d+)/)
+        return parts[1] + "<b>" + parts[2] + "</b>: " + oktaError.title + "<a href=\"#"+oktaError.errorCode+"\" aria-hidden=\"true\" class=\"header-anchor header-link\"><i class=\"fa fa-link\"></i></a>"
+      },
+    },
     methods: {
+      resetSearch() {
+        this.filterStatusCode = null;
+        this.search = '';
+      },
+      toggleResponseExample(errorCode) {
+        if(errorCode == this.openExample) {
+          this.openExample = '' 
+        } else {
+          this.openExample = errorCode
+        }
+      },
       updateSearch: _.debounce(function(e) {
         this.search = e.target.value
       }, 100),
       addHistory() {
         if (history.pushState) {
-          if (this.search) {
+          if (this.search && this.filterStatusCode) {
+            history.pushState(null, '', '?q=' + encodeURI(this.search) + '&httpStatus=' + encodeURI(this.filterStatusCode))
+          } else if (this.search) {
             history.pushState(null, '', '?q=' + encodeURI(this.search))
-          } else if (this.httpStatus) {
-            history.pushState(null, '', '?httpStatus=' + encodeURI(this.httpStatus))
+          } else if (this.filterStatusCode) {
+            history.pushState(null, '', '?httpStatus=' + encodeURI(this.filterStatusCode))
           } else {
             history.pushState(null, '', this.$route.path)
           }
@@ -97,8 +134,26 @@
       padding-right: 0;
     }
 
+    .error-codes-search-container {
+      display: flex;
+      align-items: center;
+    }
+
+    .reset-search {
+      cursor: pointer;
+    }
+
+    .reset-search::before {
+        content: '\f021';
+        margin-left: 8px;
+        font-family: fontawesome;
+        text-align: center;
+
+      }
+
     #error-code-search {
-      width: 100%;
+      flex: 1;
+      margin-right: 10px;
       border: 2px solid #d2d2d6;
     }
 
@@ -139,6 +194,28 @@
         padding: 5px 0px;
         margin: 0px;
 
+      }
+
+      .toggleErrorExample {
+        cursor: pointer;
+        text-decoration: underline;
+        color: #007dc1;
+      }
+
+      .toggleErrorExample {
+        font-size: 14px;
+      }
+      .toggleErrorExample::before {
+        content: '\f0a9';
+        margin-right: 8px;
+        font-family: fontawesome;
+        text-decoration: none;
+      }
+      .toggleErrorExample.open::before {
+        content: '\f0ab';
+        margin-right: 8px;
+        font-family: fontawesome;
+        text-decoration: none;
       }
 
       .error-code-mappings {
