@@ -704,7 +704,7 @@
       "statusCode": 400,
       "statusReasonPhrase": "Bad Request",
       "errorCode": "E0000088",
-      "errorSummary": "L10N_ERROR[errors.E0000088]"
+      "errorSummary": "Org Creator API subdomain validation exception."
     },
     {
       "title": "Org Creator API name validation exception",
@@ -712,7 +712,7 @@
       "statusCode": 400,
       "statusReasonPhrase": "Bad Request",
       "errorCode": "E0000089",
-      "errorSummary": "L10N_ERROR[errors.E0000089]"
+      "errorSummary": "Org Creator API name validation exception."
     },
     {
       "title": "Duplicate role assignment exception",
@@ -787,7 +787,7 @@
       "errorSummary": "This phone number is invalid."
     },
     {
-      "title": "International sms call not enabled exception",
+      "title": "International SMS call not enabled exception",
       "includesExceptionMessage": false,
       "statusCode": 403,
       "statusReasonPhrase": "Forbidden",
@@ -819,7 +819,7 @@
       "errorSummary": "YubiKey cannot be deleted while assigned to an user. Please deactivate YubiKey using reset MFA and try again"
     },
     {
-      "title": "Oem command already queued",
+      "title": "OEM command already queued",
       "includesExceptionMessage": false,
       "statusCode": 403,
       "statusReasonPhrase": "Forbidden",
@@ -827,7 +827,7 @@
       "errorSummary": "Action on device already in queue or in progress"
     },
     {
-      "title": "Oem device already locked",
+      "title": "OEM device already locked",
       "includesExceptionMessage": false,
       "statusCode": 403,
       "statusReasonPhrase": "Forbidden",
@@ -851,15 +851,15 @@
       "errorSummary": "The entity is not in the expected state for the requested transition."
     },
     {
-      "title": "Oem generic duplicate resource",
+      "title": "OEM generic duplicate resource",
       "includesExceptionMessage": false,
       "statusCode": 409,
       "statusReasonPhrase": "Conflict",
       "errorCode": "E0000108",
-      "errorSummary": "L10N_ERROR[errors.E0000108]"
+      "errorSummary": "OEM generic duplicate resource."
     },
     {
-      "title": "Sms too many requests exception",
+      "title": "SMS too many requests exception",
       "includesExceptionMessage": false,
       "statusCode": 429,
       "statusReasonPhrase": "Too Many Requests",
@@ -1048,7 +1048,7 @@
       "statusCode": 409,
       "statusReasonPhrase": "Conflict",
       "errorCode": "E0000136",
-      "errorSummary": "L10N_ERROR[errors.E0000136]"
+      "errorSummary": "Mobile phone conflict exception."
     },
     {
       "title": "Callback timeout",
@@ -1072,7 +1072,7 @@
       "statusCode": 503,
       "statusReasonPhrase": "Service Unavailable",
       "errorCode": "E0000139",
-      "errorSummary": "L10N_ERROR[errors.E0000139]"
+      "errorSummary": "Telephony provider error."
     },
     {
       "title": "Telephony opt out error",
@@ -1080,7 +1080,7 @@
       "statusCode": 400,
       "statusReasonPhrase": "Bad Request",
       "errorCode": "E0000140",
-      "errorSummary": "L10N_ERROR[errors.E0000140]"
+      "errorSummary": "Telephony opt out error."
     },
     {
       "title": "Feature update error",
