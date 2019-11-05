@@ -20,19 +20,20 @@
       <p class="error-code-description" v-else>No Description</p>
       <div class="example">
         <h6 class="toggleErrorExample" :class="{open: openExample == oktaError.errorCode}" @click="toggleResponseExample(oktaError.errorCode)">Show/Hide Error Example</h6>
-        <pre v-if="openExample == oktaError.errorCode">
-          
-          <code class="language-json responseExmaple" >
-  HTTP/1.1 {{oktaError.statusCode}} {{oktaError.statusReasonPhrase}}
-  Content-Type: application/json
-    
-  { 
-    "errorCode": "{{oktaError.errorCode}}", 
-    "errorSummary": "{{oktaError.errorSummary}}", 
-    "errorLink": "{{oktaError.errorCode}}", 
-    "errorId": "{UniqueErrorId}", 
-    "errorCauses": [] 
-  }
+        
+        <pre class="language-http" v-if="openExample == oktaError.errorCode">
+          <code>
+<span class="token response-status">HTTP/1.1 <span class="token property">{{oktaError.statusCode}} {{oktaError.statusReasonPhrase}}</span></span>
+<span class="token header-name keyword">Content-Type:</span> application/json
+<span class="token application/json">
+<span class="token punctuation">{</span>
+    <span class="token property">"errorCode"</span><span class="token punctuation">:</span> <span class="token string">"{{oktaError.errorCode}}"</span><span class="token punctuation">,</span>
+    <span class="token property">"errorSummary"</span><span class="token punctuation">:</span> <span class="token string">"{{oktaError.errorSummary}}"</span><span class="token punctuation">,</span>
+    <span class="token property">"errorLink"</span><span class="token punctuation">:</span> <span class="token string">"{{oktaError.errorCode}}"</span><span class="token punctuation">,</span>
+    <span class="token property">"errorId"</span><span class="token punctuation">:</span> <span class="token string">"{UniqueErrorId}"</span><span class="token punctuation">,</span>
+    <span class="token property">"errorCauses"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</span>
           </code>
         </pre>
     </div>
@@ -193,7 +194,12 @@
       pre {
         padding: 5px 0px;
         margin: 0px;
+        white-space: pre-line;
+      }
 
+      pre code {
+        white-space: pre;
+        padding-left: 20px;
       }
 
       .toggleErrorExample {
@@ -258,5 +264,9 @@
         font-size: 0.8em;
       }
     }
+  }
+
+  .response-status {
+
   }
 </style>
