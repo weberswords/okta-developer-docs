@@ -22,7 +22,7 @@
       <p class="error-code-description" v-if="oktaError.errorDescription" v-html="oktaError.errorDescription"></p>
       <p class="error-code-description" v-else v-html="oktaError.errorSummary"></p>
       <div class="example">
-        <h6 class="toggleErrorExample" :class="{open: openExample == oktaError.errorCode}" @click="toggleResponseExample(oktaError.errorCode)"><span v-if="openExample == oktaError.errorCode">Hide</span><span v-else>Show</span> Example Error Response</h6>
+        <h6 class="toggleErrorExample" :class="{open: openExample == oktaError.errorCode}" @click="toggleResponseExample(oktaError.errorCode)"><span class="underline"><span v-if="openExample == oktaError.errorCode">Hide</span><span v-else>Show</span> Example Error Response</span></h6>
         
         <pre class="language-http" v-if="openExample == oktaError.errorCode">
           <code>
@@ -217,16 +217,20 @@
         padding-left: 20px;
       }
 
-      .toggleErrorExample {
-        cursor: pointer;
-        text-decoration: underline;
+      .toggleErrorExample { 
         color: #007dc1;
+        cursor: pointer;
+
+        .underline:hover {
+          text-decoration: underline;
+          cursor: pointer;
+        }
       }
 
       .toggleErrorExample {
         font-size: 14px;
       }
-      .toggleErrorExample::before {
+      .toggleErrorExample:before {
         content: '\f0a9';
         margin-right: 8px;
         font-family: fontawesome;
