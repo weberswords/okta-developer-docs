@@ -2,13 +2,14 @@
   <div class="error-codes">
     <p class="error-codes-search-container">
     <input type="text" id="error-code-search" name="filter" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search error codes for... (Titles, Http Status, or Error Code)" :value="search" @input="updateSearch"/>
+    
     <select id="error-codes-release" name="release" markdown="block" v-model="filterStatusCode">
       <option :value="null">Status Codes</option>
       <option v-for="statusCode in statusCodes" v-bind:key="statusCode.statusCode" v-bind:value="statusCode.statusCode">
         {{ statusCode.statusCode }} - {{ statusCode.statusReasonPhrase}}
       </option>
     </select>
-    <span class="reset-search" @click="resetSearch"></span>
+    <span class="reset-search" @click="resetSearch" title="Reset Search"></span>
     </p>
     <div id="error-code-count">Found <b>{{ resultCount }}</b> matches</div>
     <div class="error-code" v-for="oktaError in filteredErrorCodes" :key="oktaError.errorCode">
@@ -155,12 +156,16 @@
     }
 
     .reset-search::before {
-        content: '\f00d';
-        margin-left: 8px;
-        font-family: fontawesome;
-        text-align: center;
+      content: '\f00d';
+      margin-left: 8px;
+      font-family: fontawesome;
+      text-align: center;
+    }
 
-      }
+    select {
+      height: 45px;
+      border: 2px solid #d2d2d6;
+    }
 
     #error-code-search {
       flex: 1;
