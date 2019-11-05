@@ -8,6 +8,16 @@ showToc: false
 
 # Okta Error Codes and Descriptions
 
-This document provides further information about the errors returned by the Okta API. The first table lists example errors by error code, and the second table lists example errors by HTTP return code. These lists are meant to provide examples of Okta errors, but are not exhaustive lists of all possible errors.
+This document contains a complete list of all errors that the Okta API returns, as well as some general information about what causes these errors and how to resolve them.
+
+All errors contain the follow fields:
+
+| Property       | Description                                                                                                                             |
+| -------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| `errorCode`    | An Okta code for this type of error.                                                                                                    |
+| `errorSummary` | A short description of what caused this error. Sometimes this will contain dynamically-generated information about your specific error. |
+| `errorLink`    | A link to the section of this page that describes this error.                                                                           |
+| `errorId`      | A unique identifier for this error. This can be used by Okta Support to help with troubleshooting.                                      |
+| `errorCauses`  | (Optional) Further information about what caused this error.                                                                            |
 
 <ErrorCodes />
