@@ -126,9 +126,9 @@
         }
       },
       errorId() {
-          const length = 22;
+          const length = 19;
           const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-'
-          var result = 'oae';
+          var result = 'sample';
           for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
           return result;
       }
