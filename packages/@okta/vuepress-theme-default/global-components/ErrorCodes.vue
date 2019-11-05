@@ -29,8 +29,8 @@
 <span class="token punctuation">{</span>
     <span class="token property">"errorCode"</span><span class="token punctuation">:</span> <span class="token string">"{{oktaError.errorCode}}"</span><span class="token punctuation">,</span>
     <span class="token property">"errorSummary"</span><span class="token punctuation">:</span> <span class="token string">"{{oktaError.errorSummary}}"</span><span class="token punctuation">,</span>
-    <span class="token property">"errorLink"</span><span class="token punctuation">:</span> <span class="token string">"{{oktaError.errorCode}}"</span><span class="token punctuation">,</span>
-    <span class="token property">"errorId"</span><span class="token punctuation">:</span> <span class="token string">"{UniqueErrorId}"</span><span class="token punctuation">,</span>
+    <span class="token property">"errorLink"</span><span class="token punctuation">:</span> <span class="token string">"https://developer.okta.com/docs/reference/error-codes/#{{oktaError.errorCode}}"</span><span class="token punctuation">,</span>
+    <span class="token property">"errorId"</span><span class="token punctuation">:</span> <span class="token string">"{{errorId()}}"</span><span class="token punctuation">,</span>
     <span class="token property">"errorCauses"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
 <span class="token punctuation">}</span>
 </span>
@@ -124,6 +124,13 @@
             history.pushState(null, '', this.$route.path)
           }
         }
+      },
+      errorId() {
+          const length = 22;
+          const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-'
+          var result = 'oae';
+          for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
+          return result;
       }
     }
   }
