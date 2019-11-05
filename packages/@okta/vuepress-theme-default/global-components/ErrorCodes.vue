@@ -12,14 +12,17 @@
     </p>
     <div id="error-code-count">Found <b>{{ resultCount }}</b> matches</div>
     <div class="error-code" v-for="oktaError in filteredErrorCodes" :key="oktaError.errorCode">
-      <h4 :id="oktaError.errorCode" v-html="$options.filters.titleErrorCode(oktaError)"></h4>
+      <h4 :id="oktaError.errorCode">
+        <span class="title-error-code" v-html="$options.filters.titleErrorCode(oktaError)"></span>
+        <span>{{oktaError.title}} <a :href="'#'+oktaError.errorCode" aria-hidden="true" class="header-anchor header-link"><i class="fa fa-link"></i></a></span>
+      </h4>
       <div class="error-code-mappings">
-        <b>Http Status: </b> {{ oktaError.statusCode }} {{ oktaError.statusReasonPhrase }}
+        <b>HTTP Status: </b> <code>{{ oktaError.statusCode }} {{ oktaError.statusReasonPhrase }}</code>
       </div>
-      <p class="error-code-description" v-if="oktaError.errorSummary">{{ oktaError.errorSummary}}</p>
-      <p class="error-code-description" v-else>No Description</p>
+      <p class="error-code-description" v-if="oktaError.errorDescription" v-html="oktaError.errorDescription"></p>
+      <p class="error-code-description" v-else v-html="oktaError.errorSummary"></p>
       <div class="example">
-        <h6 class="toggleErrorExample" :class="{open: openExample == oktaError.errorCode}" @click="toggleResponseExample(oktaError.errorCode)">Show/Hide Error Example</h6>
+        <h6 class="toggleErrorExample" :class="{open: openExample == oktaError.errorCode}" @click="toggleResponseExample(oktaError.errorCode)"><span v-if="openExample == oktaError.errorCode">Hide</span><span v-else>Show</span> Example Error Response</h6>
         
         <pre class="language-http" v-if="openExample == oktaError.errorCode">
           <code>
@@ -94,7 +97,7 @@
     filters: {
       titleErrorCode: function (oktaError) {
         const parts = oktaError.errorCode.split(/(E0+)(\d+)/)
-        return parts[1] + "<b>" + parts[2] + "</b>: " + oktaError.title + "<a href=\"#"+oktaError.errorCode+"\" aria-hidden=\"true\" class=\"header-anchor header-link\"><i class=\"fa fa-link\"></i></a>"
+        return parts[1] + "<b>" + parts[2] + "</b>: "
       },
     },
     methods: {
@@ -190,6 +193,11 @@
         color: #007dc1;
         text-overflow: ellipsis;
         white-space: nowrap;
+        
+      }
+
+      h4 .title-error-code {
+        font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
       }
 
       h4::before {
