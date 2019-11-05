@@ -155,7 +155,7 @@
     }
 
     .reset-search::before {
-        content: '\f021';
+        content: '\f00d';
         margin-left: 8px;
         font-family: fontawesome;
         text-align: center;
@@ -285,7 +285,4 @@
     }
   }
 
-  .response-status {
-
-  }
 </style>
