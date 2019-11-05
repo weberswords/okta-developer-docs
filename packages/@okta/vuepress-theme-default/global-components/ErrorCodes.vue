@@ -223,7 +223,6 @@
 
         .underline:hover {
           text-decoration: underline;
-          cursor: pointer;
         }
       }
 
