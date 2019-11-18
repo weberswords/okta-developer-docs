@@ -5,32 +5,31 @@
 set -o errexit -o pipefail
 
 # Constants
-readonly url='https://artifacts.aue1d.saasure.com/artifactory/topic/com/okta/okta-core/okta-core.core/2019.11.1-begin-23-g0b7e690973ff/okta-core.core-2019.11.1-begin-23-g0b7e690973ff-metadata.jar'
-readonly archive=/tmp/api-errors.zip
-readonly file=error-codes.json
+readonly url='https://artifacts.aue1d.saasure.com/artifactory/topic/com/okta/monolith/tokens-api/2019.11.1-begin-23-g0b7e690973ff/tokens-api-2019.11.1-begin-23-g0b7e690973ff-metadata.jar'
+readonly archive=/tmp/oauth2-error-codes.zip
+readonly file=oauth2-error-codes.json
 readonly dir=packages/@okta/vuepress-site/data
 
 main() {
-    error-codes-download
+    oauth2-error-codes-download
     echo
-    error-codes-update
+    oauth2-error-codes-update
     echo
-    error-codes-diff
+    oauth2-error-codes-diff
 }
 
-error-codes-download() {
+oauth2-error-codes-download() {
     banner "Downloading jar from $url..."
     curl -k -L $url > $archive || die "Could not download file"
 }
 
-error-codes-update() {
+oauth2-error-codes-update() {
     banner "Updating $file..."
-    unzip -o $archive api-errors.json -d $dir || die "Could not unzip file"
-    mv $dir/api-errors.json $dir/$file
+    unzip -o $archive $file -d $dir || die "Could not unzip file"
     rm $archive
 }
 
-error-codes-diff() {
+oauth2-error-codes-diff() {
     banner "Showing differences in $file..."
     git --no-pager diff $dir/$file || die "Could not diff file"
 }
