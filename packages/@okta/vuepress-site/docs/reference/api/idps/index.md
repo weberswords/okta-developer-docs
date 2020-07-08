@@ -5176,6 +5176,13 @@ The Single Sign-On (SSO) endpoint is the IdP's `SingleSignOnService` endpoint:
 | ----------- | ---------------------------------------------------------------------------------- | -------------------------------- | -------- | -------- | --------- | --------- | ----------------------------------------------- |
 | url         | URL of binding-specific endpoint     | String                           | FALSE    | TRUE    | 11        | 1014      | [RFC 3986](https://tools.ietf.org/html/rfc3986) |
 
+
+This property will have a value of `https://${yourOktaDomain}.okta.com/login/cert`.
+
+<ApiLifecycle access="ea" />
+
+If the EA feature that enables X509 authentication in a custom-hosted sign-in widget is turned on, the value will be `https://${yourOktaDomain}.mtls.okta.com/api/internal/v1/authn/cert`.
+
 Property Details
 
 ```json
