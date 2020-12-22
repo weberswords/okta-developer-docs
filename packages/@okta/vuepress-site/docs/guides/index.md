@@ -40,6 +40,7 @@ guides:
  - refresh-tokens
  - request-user-consent
  - revoke-tokens
+ - saml-hook
  - saml-tracer
  - session-cookie
  - set-up-event-hook
