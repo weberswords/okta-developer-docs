@@ -10,18 +10,16 @@ module.exports = {
    * Custom head elements here
    */
   head: [
-    ['script', { src: "https://www.okta.com/sites/all/modules/okta_coveo_search_developer/js/lib/CoveoJsSearch.Lazy.min.js?20200128", defer: true}],
+    ['link', { rel: 'stylesheet', href: 'https://static.cloud.coveo.com/searchui/v2.8959/14/css/CoveoFullSearch.min.css', integrity: 'sha512-DzuDVtX/Dud12HycdAsm2k9D1UQ8DU7WOj7cBRnSsOKQbKfkI94g0VM9hplM0BkQ0VXdDiQYU9GvUzMmw2Khaw==', crossorigin: 'anonymous' }],
+    ['script', { class: 'coveo-script', src: 'https://static.cloud.coveo.com/searchui/v2.8959/14/js/CoveoJsSearch.Lazy.min.js', integrity: 'sha512-RV1EooPduQhwl0jz+hmjBw/nAtfeXNm6Dm/hlCe5OR1jAlG4RErUeYfX1jaaM88H8DiyCJDzEWZkOR0Q13DtrA==', crossorigin: 'anonymous', defer: true}],
     ['link', { rel: 'apple-touch-icon', sizes:'180x180', href: '/favicon/apple-touch-icon.png' }],
     ['link', { rel: 'icon', type:"image/png", sizes:"32x32",  href: '/favicon/favicon-32x32.png' }],
     ['link', { rel: 'icon', type:"image/png", sizes:"16x16",  href: '/favicon/favicon-16x16.png' }],
     ['link', { rel: 'manifest',  href: '/favicon/manifest.json' }],
     ['link', { rel: 'mask-icon',  href: '/favicon/safari-pinned-tab.svg' }],
-    ['script', { src: "https://developer.okta.com/sites/all/modules/okta_coveo_search_developer/js/lib/CoveoJsSearch.Lazy.min.js?20200228", defer: true}],
     ['link', { rel: 'preload', href: 'https://use.typekit.net/osg6paw.css', as: 'style', crossorigin: true}],
     ['link', { rel: 'stylesheet', href: 'https://use.typekit.net/osg6paw.css', crossorigin: true}],
-    ['link', { rel: 'stylesheet', href: 'https://developer.okta.com/sites/all/modules/okta_coveo_search_developer/css/okta_coveo_search_developer.css?20200128' }],
     ['meta', { name: 'msapplication-config',  content: '/favicon/browserconfig.xml' }],
-    ['link', { rel: 'stylesheet', href: 'https://www.okta.com/sites/all/modules/okta_coveo_search_developer/css/okta_coveo_search_developer.css?20200128' }],
     ['meta', { 'http-equiv': 'XA-UA-Compatible', content: 'IE=edge'}],
 
     /**
@@ -60,6 +58,19 @@ module.exports = {
    * Global theme config
    */
   themeConfig: {
+
+    /**
+     * URI config
+     */
+    uris: {
+      baseUri: 'https://okta-dev-parent.trexcloud.com',
+      registrationPolicyId: 'reg3kwstakmbOrIly0g7',
+      idps: {
+        github: '0oa3jobx2bBlylNft0g7',
+        google: '0oa3jaktbqkiwCthn0g7',
+      },
+    },
+
     /**
      * Primary Nav: Array of MenuItem components to iterate over within TopNavigation component
      */
@@ -130,14 +141,6 @@ module.exports = {
         ]
       }
     ],
-
-    sidebars: {
-      codePages: require('./nav/codePages'),
-      reference: require('./nav/reference'),
-      guides: require('./nav/guides'),
-      concepts: require('./nav/concepts')
-    },
-
     quickstarts: {
       clients: [
         { name: 'okta-sign-in-page', label: 'Okta Sign-In Page', serverExampleType: 'auth-code', default: true },
@@ -241,10 +244,10 @@ module.exports = {
         contact: {
           heading: 'Contact & Legal',
           items: [
-            { text: 'Contact our team', link: 'https://developer.okta.com/contact/' },
-            { text: 'Contact sales', link: 'https://developer.okta.com/contact-sales-enterprise/' },
-            { text: 'Terms & conditions', link: 'https://developer.okta.com/terms/' },
-            { text: 'Privacy policy', link: 'https://developer.okta.com/privacy/' },
+            { text: 'Contact our team', link: 'https://www.okta.com/contact/' },
+            { text: 'Contact sales', link: 'https://www.okta.com/contact-sales/' },
+            { text: 'Terms & conditions', link: '/terms/' },
+            { text: 'Privacy policy', link: 'https://www.okta.com/privacy-policy/' },
           ]
         },
         more: {
@@ -265,8 +268,16 @@ module.exports = {
         }
       },
 
+      company_logos: [
+        { name: 'Major League Baseball', icon: '/img/logos/baseball.png' },
+        { name: 'Splunk', icon: '/img/logos/splunk.png' },
+        { name: 'Adobe', icon: '/img/logos/adobe.png' },
+        { name: 'JetBlue', icon: '/img/logos/jetblue.png' },
+        { name: 'Experian', icon: '/img/logos/experian.png' },
+      ],
+
       forum_url: 'https://devforum.okta.com/',
-      copyright_text: 'Copyright © 2020 Okta.'
+      copyright_text: 'Copyright © 2021 Okta.'
     },
   },
 

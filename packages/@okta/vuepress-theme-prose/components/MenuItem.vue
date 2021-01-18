@@ -1,15 +1,18 @@
 <template>
   <li
     :class="{
-      expanded: expanded,
-      active: item.active
+      expandable: isExpandable,
+      active: item.active,
+      open: isOpen
     }"
+    @click="isOpen = !isOpen"
   >
     <a
       v-if="item.link"
       :href="item.link"
       :class="{ [itemCss]: true, active: $page.path.includes(item.link) }"
       :target="item.target"
+      :rel="item.target && 'noopener noreferrer'"
       v-html="item.text"
     ></a>
     <span v-else-if="item.text" v-html="item.text" :class="itemCss"></span>
@@ -56,8 +59,13 @@ export default {
       default: ""
     }
   },
+  data() {
+    return {
+      isOpen: false,
+    }
+  },
   computed: {
-    expanded() {
+    isExpandable() {
       return this.item.children && this.item.children.length;
     }
   }
