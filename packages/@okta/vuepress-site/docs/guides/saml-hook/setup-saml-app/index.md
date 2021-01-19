@@ -8,7 +8,7 @@ Access the Spring Security + SAML and Database Authentication code from the foll
 
 [https://github.com/oktadeveloper/okta-spring-security-saml-db-example](https://github.com/oktadeveloper/okta-spring-security-saml-db-example)
 
-Follow the [README.md](https://github.com/oktadeveloper/okta-spring-security-saml-db-example/blob/master/README.md) instructions to install and run the Okta-Hosted-Login sample application with your Okta org. Make sure to have this application running before proceeding with the SAML Assertion Inline Hook setup.
+Follow the [README.md](https://github.com/oktadeveloper/okta-spring-security-saml-db-example/blob/master/README.md) instructions to install and run the Spring Boot sample application with your Okta org. Make sure to have this application running before proceeding with the SAML Assertion Inline Hook setup.
 
 <!-- <StackSelector snippet="setup"/> -->
 

@@ -19,8 +19,8 @@ To preview the SAML Assertion Inline Hook:
 5. Select your SAML Application by searching in the **Select a SAML app** field (in this example, "Spring Book DB/SAML").
 6. From the **Preview example Inline Hook request"** block, click **Generate Request**.
     You should see the user's request information in JSON format that is sent to the external service.
-    
-    > **Note:** You can also **Edit** this call for testing purposes.
+
+    > **Note:** You can also **Edit** this call for development or testing purposes.
 7. From the **View service's response** block, click **View Response**.
     You will see the response from your external service in JSON format, which either adds a claim to the SAML assertion or not.
 
@@ -28,11 +28,11 @@ To preview the SAML Assertion Inline Hook:
 
 To run a test of your SAML Assertion Inline Hook:
 
-1. Start your SAML Application (`> mvn spring-boot:run` in your project folder `okta-spring-security-saml-db-example >`).
+1. Start your SAML Application by navigating to  your project folder (`okta-spring-security-saml-db-example >`) and then running the application (`> mvn spring-boot:run`).
 
 2. Navigate to your sample application (`http:/localhost:8080`).
 
-3. Navigate to your Glitch.com project to make sure it is listening for requests; open the Console Logs window (**Tools** > **Logs**).
+3. Navigate to your Glitch.com project to make sure it's listening for requests; open the Console Logs window (**Tools** > **Logs**).
 
 4. Return to your SAML application and sign in with an Okta user who is NOT in the Patients data store.
 
@@ -41,6 +41,6 @@ To run a test of your SAML Assertion Inline Hook:
 
     The user should sign in as normal; however, this user should have a patient ID displayed in the Glitch console output, as well as a successful implementation record of the SAML Assertion Inline Hook, available for review in your Okta org's System Log (**Reports** > **System Log**).
 
-> **Note:** Review the [Troubleshooting hook implementations](/data/guides/common-hook-set-up-steps/troubleshooting) section for information on any difficulties.
+> **Note:** Review the [Troubleshooting hook implementations](/docs/guides/common-hook-set-up-steps/nodejs/troubleshooting/) section for information on any difficulties.
 
 <!-- <StackSelector snippet="preview"/> -->

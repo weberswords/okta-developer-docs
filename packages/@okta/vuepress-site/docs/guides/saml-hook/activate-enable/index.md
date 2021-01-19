@@ -14,7 +14,7 @@ To set up and activate the SAML Assertion Inline Hook:
 
 3. Add a name for the hook (in this example, "Patient SAML Hook").
 
-4. Add your external service URL, including the endpoint. For example, use your Glitch project name with the endpoint: `https://your-glitch-projectname.glitch.me/SAMLook`.
+4. Add your external service URL, including the endpoint. For example, use your Glitch project name with the endpoint: `https://your-glitch-projectname.glitch.me/SAMLHook`.
 
 5. Include authentication field and secret. In this example:
 
