@@ -321,7 +321,8 @@ module.exports = {
               '/docs/guides/third-party-risk-integration/update-default-provider/',
               '/docs/guides/third-party-risk-integration/test-integration/',
               '/docs/reference/api/risk-providers/',
-              '/docs/reference/api/risk-events/'
+              '/docs/reference/api/risk-events/',
+              '/docs/reference/okta-expression-language-in-identity-engine/'
           ]
         }
       ]
